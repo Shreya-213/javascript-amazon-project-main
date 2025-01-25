@@ -25,7 +25,7 @@ products.forEach((product)=>{
         $${(product.priceCents/100).toFixed(2)}
     </div>
 
-    <div class="product-quantity-container">
+    <div class="product-quantity-container js-product-quantity-container-${product.id}">
         <select>
         <option selected value="1">1</option>
         <option value="2">2</option>
@@ -42,7 +42,7 @@ products.forEach((product)=>{
 
     <div class="product-spacer"></div>
 
-    <div class="added-to-cart">
+    <div class="added-to-cart js-added-to-cart">
         <img src="images/icons/checkmark.png">
         Added
     </div>
@@ -68,21 +68,21 @@ document.querySelectorAll('.js-add-to-cart')
             }
         });
 
+        const itemQtySelector = document.querySelector(`.js-product-quantity-container-${productId}`);
+        const itemQty= Number(itemQtySelector.querySelector('select').value);
+
         if(matchingItem){
-            matchingItem.quantity += 1;
+            matchingItem.quantity += itemQty;
         }
         else{
             cart.push({
                 productId,
-                quantity : 1
+                quantity : itemQty
             });
         }
 
         cartQty += 1;
         let d = document.querySelector('.js-cart-quantity');
         d.innerText = cartQty;
-
     }); 
 });
-
-
