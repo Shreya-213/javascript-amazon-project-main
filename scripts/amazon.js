@@ -1,3 +1,5 @@
+import {cart, cartQty} from '../data/cart.js';
+
 console.log("Hello");
 
 let productsHtml = '';
