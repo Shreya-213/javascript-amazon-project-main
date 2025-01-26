@@ -1,3 +1,5 @@
+import { products } from "../data/products.js";
+
 console.log("Hello");
 
 let productsHtml = '';
