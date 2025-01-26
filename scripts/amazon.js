@@ -1,4 +1,5 @@
 import {cart, cartQty} from '../data/cart.js';
+import { products } from '../data/products.js';
 
 console.log("Hello");
 
