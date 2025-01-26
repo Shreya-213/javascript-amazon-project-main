@@ -656,5 +656,19 @@ const products = [
       "apparel",
       "mens"
     ]
-  }
+  },
+  {
+    id: "15b6fc6f-327a-4ec4-8786f-486349e85a3d",
+    image: "images/products/intermediate-composite-basketball.jpg",
+    name: "Regular Size Basketball",
+    rating: {
+      stars: 4.5,
+      count: 158
+    },
+    priceCents: 3000,
+    keywords: [
+      "sports",
+      "basketballs"
+    ]
+  },
 ];
