@@ -4,6 +4,8 @@ import { centsToDollars } from "./utils/money.js";
 
 console.log("Hello");
 
+cartModule.updateCartQuantityHtml('.js-cart-quantity');
+
 let productsHtml = '';
 
 products.forEach((product)=>{
