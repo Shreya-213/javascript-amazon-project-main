@@ -69,6 +69,7 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click', ()=>{
         const {productId} = button.dataset;
         cartModule.addToCart(productId);
+        cartModule.updateCartQuantityHtml('.js-cart-quantity');
 
         const timeoutId = button.getAttribute('data-timeout-id');
         if (timeoutId) {
