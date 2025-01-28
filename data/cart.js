@@ -1,5 +1,5 @@
 
-export let cartQty = localStorage.getItem('cartQty') || 0;
+export let cartQty = Number(localStorage.getItem('cartQty')) || 0;
 
 export let cart = JSON.parse(localStorage.getItem('cart'));
 if(!cart){
@@ -42,12 +42,11 @@ export function addToCart(productId){
         });
     }
     updateCartQuantity(itemQty);
-    updateCartQuantityHtml('.js-cart-quantity');
     saveToStorage();
 }
 
 function updateCartQuantity(itemQty){
-    cartQty += itemQty;
+    cartQty += Number (itemQty);
     localStorage.setItem('cartQty', cartQty);
 }
 
