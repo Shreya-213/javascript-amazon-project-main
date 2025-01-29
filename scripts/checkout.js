@@ -33,12 +33,13 @@ cartModule.cart.forEach((cartItem)=>{
             </div>
             <div class="product-quantity">
                 <span>
-                Quantity: <span class="quantity-label">${cartItem.quantity}</span>
+                Quantity: 
                 </span>
+                <span class="quantity-label">${cartItem.quantity}</span>
                 <span class="update-quantity-link link-primary" data-product-id="${matchingProduct.id}">
                 Update
                 </span>
-                <input class="quantity-input">
+                <input class="quantity-input" type="number" min="1" max="100" required>
                 <span class="save-quantity-link link-primary" data-product-id="${matchingProduct.id}">Save</span>
                 <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${matchingProduct.id}">
                 Delete
@@ -98,6 +99,12 @@ document.querySelector('.order-summary').innerHTML = cartSummaryHtml;
 
 updateHeaderCartQtyHtml();
 
+document.querySelectorAll('.product-quantity')
+    .forEach((product)=>{
+        const productQty = Number(product.querySelector('.quantity-label').innerText);
+        product.querySelector('.quantity-input').value = productQty;
+    });
+
 document.querySelectorAll('.js-delete-link')
     .forEach((link) => {
         link.addEventListener('click', ()=>{
@@ -133,6 +140,19 @@ document.querySelectorAll('.save-quantity-link')
 
             const updateSectionParent = saveLink.parentElement;
             const newQty = Number (updateSectionParent.querySelector('.quantity-input').value);
+
+            if(newQty <1){
+                for(var i=0; i<cartModule.cart.length; i++){
+                    if(cartModule.cart[i].productId === productId){
+                        cartModule.cart.splice(i, 1);
+                        cartModule.saveCartToStorage();
+                    }
+                }
+                container.remove();
+
+                return;
+            }
+
 
             //update displayed product quantity
             updateSectionParent.querySelector('.quantity-label').innerText = newQty;
