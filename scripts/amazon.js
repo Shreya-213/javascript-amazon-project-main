@@ -1,4 +1,10 @@
+import { products } from "../data/products.js";
+import * as cartModule from "../data/cart.js";
+import { centsToDollars } from "./utils/money.js";
+
 console.log("Hello");
+
+cartModule.updateCartQuantityHtml('.js-cart-quantity');
 
 let productsHtml = '';
 
@@ -22,7 +28,7 @@ products.forEach((product)=>{
     </div>
 
     <div class="product-price">
-        $${(product.priceCents/100).toFixed(2)}
+        $${centsToDollars(product.priceCents)}
     </div>
 
     <div class="product-quantity-container js-product-quantity-container-${product.id}">
@@ -61,35 +67,14 @@ document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
     button.setAttribute('data-timeout-id', '');
     button.addEventListener('click', ()=>{
+        const {productId} = button.dataset;
+        cartModule.addToCart(productId);
+        cartModule.updateCartQuantityHtml('.js-cart-quantity');
+
         const timeoutId = button.getAttribute('data-timeout-id');
         if (timeoutId) {
             clearTimeout(timeoutId);
         }
-
-        const {productId} = button.dataset;
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(item.productId === productId){
-                matchingItem = item;
-            }
-        });
-
-        const itemQtySelector = document.querySelector(`.js-product-quantity-container-${productId}`);
-        const itemQty= Number(itemQtySelector.querySelector('select').value);
-
-        if(matchingItem){
-            matchingItem.quantity += itemQty;
-        }
-        else{
-            cart.push({
-                productId,
-                quantity : itemQty
-            });
-        }
-
-        cartQty += itemQty;
-        let d = document.querySelector('.js-cart-quantity');
-        d.innerText = cartQty;
 
         const addedButton = document.querySelector(`.js-added-to-cart-${productId}`);
         addedButton.classList.add(`added-to-cart-visible`);
@@ -101,3 +86,4 @@ document.querySelectorAll('.js-add-to-cart')
         },2000));  
     }); 
 });
+
